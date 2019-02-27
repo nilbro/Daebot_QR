@@ -48,7 +48,7 @@ int QRScanner::scan(){
 
 	  while(1){
 
-	      Mat frame;
+		  Mat grey_frame, pattern, result, frame;
 	      // Capture frame-by-frame
 	      cap >> frame;
 	      //Convert to grey-scale
@@ -59,9 +59,11 @@ int QRScanner::scan(){
 	      Image zimage(frame.cols, frame.rows, "Y800", (uchar *)grey.data, frame.cols * frame.rows);
 
 	      //scan and decode the converted image
-	      _scanner.scan(zimage);
+	     // _scanner.scan(zimage);
 	      //_locMtx.lock();
 	      _locations.clear();
+	      cout <<  _scanner.scan(zimage);
+
 	      for(Image::SymbolIterator symbol = zimage.symbol_begin();symbol != zimage.symbol_end();++symbol){
 	    	  vector<Point> vp;
 	    	  Location location;
@@ -74,9 +76,6 @@ int QRScanner::scan(){
 
 	    	      	    }
 	    	  _locations.push_back(Location{location});
-
-
-
 	    	  RotatedRect r = minAreaRect(vp);
 	    	      	Point2f pts[4];
 	    	      	       r.points(pts);
@@ -88,7 +87,6 @@ int QRScanner::scan(){
 
 	    	      	       }
 	    	      }
-
 	      imshow( "Frame", frame );
 
 	         // Press  ESC on keyboard to exit

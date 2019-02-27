@@ -31,6 +31,7 @@ public:
     std::pair<int,int> find(std::string locationName);
     int scan();
 
+
 private:
     std::vector<Location> _locations;
     std::mutex _locMtx;
