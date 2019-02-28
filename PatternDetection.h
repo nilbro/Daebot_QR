@@ -19,10 +19,23 @@ using namespace cv;
 using namespace zbar;
 
 
+struct Location{
+	Point position;
+	String info;
+};
+
+
 class Pattern_Detection {
 public:
 	Pattern_Detection();
+	std::pair<int,int> find(std::string locationName);
 	int show_detection();
+
+private:
+    std::vector<Location> _locations;
+    std::mutex _locMtx;
+    zbar::ImageScanner _scanner;
 };
+
 
 #endif /* PATTERNDETECTION_H_ */
